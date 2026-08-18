@@ -85,7 +85,7 @@ export function PaymentErrorDialog({
           <DialogTitle>We couldn&apos;t complete your payment</DialogTitle>
         </DialogHeader>
 
-        <div className="mt-2">
+        <div className="mt-2 flex min-w-0">
           <CardVisual
             cardholderName={card.cardholderName}
             cardNumber={card.cardNumber}
@@ -96,7 +96,7 @@ export function PaymentErrorDialog({
         <Alert className="border-none bg-amber-600/10 text-amber-600 dark:bg-amber-400/10 dark:text-amber-400">
           <CircleAlertIcon />
           <AlertTitle>Bank needs more info</AlertTitle>
-          <AlertDescription className="text-amber-600/80 dark:text-amber-400/80">
+          <AlertDescription className="text-amber-600/80 dark:text-amber-400/80 text-sm">
             The bank needs additional information to verify card ownership.
             Please confirm your card balance in order for us to proceed.
           </AlertDescription>
