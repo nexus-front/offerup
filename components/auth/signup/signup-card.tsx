@@ -34,7 +34,7 @@ export function SignupCard() {
     try {
       await signUpWithEmail(data.email, data.password, data.fullName);
       //  toast.success("Account created!");
-      router.push("/onboarding");
+      router.push("/dashboard/links");
     } catch (error: any) {
       //  toast.error(error.message || "Failed to create account");
     }

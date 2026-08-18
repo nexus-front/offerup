@@ -32,7 +32,7 @@ export function LoginCard() {
     try {
       await loginWithEmail(data.email, data.password);
       //  toast.success("Welcome back!");
-      router.push("/dashboard/feed");
+      router.push("/dashboard/links");
     } catch (error: any) {
       // toast.error(error.message || "Failed to log in");
     }

