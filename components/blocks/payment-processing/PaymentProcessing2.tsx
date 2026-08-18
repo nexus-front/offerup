@@ -154,7 +154,7 @@ export default function PaymentProcessing2({
                 <span className="text[4px] md:text-[10px] md:font-semibold uppercase tracking-wide opacity-80">
                   Escrow
                 </span>
-                <span className="text-[2px] md:text-xs md:font-medium">
+                <span className="text-[5px] md:text-xs md:font-medium">
                   OfferUp Payments
                 </span>
               </div>
@@ -178,7 +178,7 @@ export default function PaymentProcessing2({
                     Your card
                   </span>
                 </div>
-                <span className="text-[2px] md:text-xs md:font-medium tracking-wider">
+                <span className="text-[5px] md:text-xs md:font-medium tracking-wider">
                   •••• {card.cardNumber.replace(/\D/g, "").slice(-4)}
                 </span>
               </div>
