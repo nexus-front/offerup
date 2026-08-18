@@ -150,8 +150,8 @@ export default function PaymentProcessing2({
             {/* Card transfer animation */}
             <div className="mt-12 flex w-full max-w-md items-center justify-between">
               {/* Source: escrow / platform */}
-              <div className="flex h-24 w-36 flex-col justify-between rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-700 p-3 text-white shadow-md">
-                <span className="text-[10px] font-semibold uppercase tracking-wide opacity-80">
+              <div className="flex sm:h-18 sm:w-30 md:h-24 md:w-36 flex-col justify-between rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-700 p-3 text-white shadow-md">
+                <span className="sm:text[7px] md:text-[10px] font-semibold uppercase tracking-wide opacity-80">
                   Escrow
                 </span>
                 <span className="text-xs font-medium">OfferUp Payments</span>
@@ -170,9 +170,9 @@ export default function PaymentProcessing2({
               </div>
 
               {/* Destination: seller's card */}
-              <div className="flex h-24 w-36 flex-col justify-between rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 p-3 text-white shadow-md">
+              <div className="flex sm:h-18 sm:w-30 md:h-24 md:w-36 flex-col justify-between rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 p-3 text-white shadow-md">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-semibold uppercase tracking-wide opacity-80">
+                  <span className="sm:text[7px] md:text-[10px] font-semibold uppercase tracking-wide opacity-80">
                     Your card
                   </span>
                 </div>
