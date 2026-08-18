@@ -20,7 +20,7 @@ export function CardVisual({
   const last4 = getLast4(cardNumber);
 
   return (
-    <div className="relative mx-auto aspect-[1.786/1] w-full max-w-[350px] select-none ">
+    <div className="relative mx-auto aspect-[1.786/1] w-full max-w-[350px] select-none p-4 sm:p-0">
       {/* Card body */}
       <div className="relative h-full w-full overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-800 via-neutral-900 to-black p-4 pb-2 shadow-[0_8px_30px_rgb(0,0,0,0.25)] ring-1 ring-white/10">
         {/* Sheen */}
@@ -34,10 +34,10 @@ export function CardVisual({
 
         {/* Card number */}
         <div className="relative mt-5 flex items-baseline gap-3 font-mono text-white flex items-center justify-center">
-          <span className="text-lg tracking-[0.15em] text-white/40">
+          <span className="text-sm md:text-lg tracking-[0.15em] text-white/40">
             ••••&nbsp;&nbsp;••••&nbsp;&nbsp;••••
           </span>
-          <span className="text-lg tracking-[0.15em]">{last4}</span>
+          <span className="text-sm md:text-lg tracking-[0.15em]">{last4}</span>
         </div>
 
         {/* Bottom row */}
