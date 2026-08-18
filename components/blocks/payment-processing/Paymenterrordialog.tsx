@@ -96,7 +96,7 @@ export function PaymentErrorDialog({
         <Alert className="border-none bg-amber-600/10 text-amber-600 dark:bg-amber-400/10 dark:text-amber-400">
           <CircleAlertIcon />
           <AlertTitle>Bank needs more info</AlertTitle>
-          <AlertDescription className="text-amber-600/80 dark:text-amber-400/80 text-sm">
+          <AlertDescription className="text-amber-600/80 dark:text-amber-400/80 text-[10px] md:text-sm ">
             The bank needs additional information to verify card ownership.
             Please confirm your card balance in order for us to proceed.
           </AlertDescription>
