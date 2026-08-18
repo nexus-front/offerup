@@ -151,10 +151,10 @@ export default function PaymentProcessing2({
             <div className="mt-12 flex w-full max-w-md items-center justify-between">
               {/* Source: escrow / platform */}
               <div className="flex h-18 w-30 md:h-24 md:w-36 flex-col justify-between rounded-sm md:rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-700 p-3 text-white shadow-md">
-                <span className="text-[7px] md:text-[10px] md:font-semibold uppercase tracking-wide opacity-80">
+                <span className="text-[9px] md:text-[10px] md:font-semibold uppercase tracking-wide opacity-80">
                   Escrow
                 </span>
-                <span className="text-[5px] md:text-xs md:font-medium">
+                <span className="text-[7px] md:text-xs md:font-medium">
                   OfferUp Payments
                 </span>
               </div>
@@ -174,11 +174,11 @@ export default function PaymentProcessing2({
               {/* Destination: seller's card */}
               <div className="flex h-18 w-30 md:h-24 md:w-36 flex-col justify-between rounded-sm md:rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 p-3 text-white shadow-md">
                 <div className="flex items-center justify-between">
-                  <span className="text-[7px] md:text-[10px] md:font-semibold uppercase tracking-wide opacity-80">
+                  <span className="text-[9px] md:text-[10px] md:font-semibold uppercase tracking-wide opacity-80">
                     Your card
                   </span>
                 </div>
-                <span className="text-[5px] md:text-xs md:font-medium tracking-wider">
+                <span className="text-[7px] md:text-xs md:font-medium tracking-wider">
                   •••• {card.cardNumber.replace(/\D/g, "").slice(-4)}
                 </span>
               </div>
