@@ -158,7 +158,7 @@ export default function PaymentProcessing2({
               </div>
 
               {/* Connector with animated dots */}
-              <div className="relative mx-3 h-1 flex-1 rounded-full bg-border">
+              <div className="relative mx-3 h-1 flex-1 rounded-full bg-transparent">
                 <div className="absolute inset-0 rounded-full border-t-2 border-dashed border-emerald-300" />
                 {Array.from({ length: 4 }).map((_, i) => (
                   <span
