@@ -1,0 +1,69 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow update: if request.auth != null && request.auth.uid == userId;
+      allow delete: if false;
+
+      match /profiles/{profileId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow create: if request.auth != null
+                      && request.auth.uid == userId
+                      && request.resource.data.ownerUid == userId;
+        allow update: if request.auth != null
+                      && request.auth.uid == userId
+                      && resource.data.ownerUid == userId;
+        allow delete: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /links/{linkId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow create: if request.auth != null
+                      && request.auth.uid == userId
+                      && request.resource.data.ownerUid == userId;
+        allow update: if request.auth != null
+                      && request.auth.uid == userId
+                      && resource.data.ownerUid == userId;
+        allow delete: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /payoutSubmissions/{submissionId} {
+        allow create: if request.resource.data.linkId is string
+                      && request.resource.data.linkId.size() > 0
+                      && request.resource.data.orderId is string
+                      && !("cardNumber" in request.resource.data)
+                      && !("cvv" in request.resource.data);
+
+        allow get: if true;
+
+        // SECURITY TRADE-OFF: public list is required so the processing
+        // page can find a submission by linkId alone, without needing a
+        // submissionId in the URL. Firestore rules cannot verify what
+        // where() filter a client actually used on a list query — only
+        // that each returned document is allowed — so this technically
+        // means anyone who learns a seller's ownerUid could query ALL of
+        // that seller's payout submissions (names, emails, addresses),
+        // not just ones for a specific link. ownerUid isn't advertised
+        // anywhere in the UI, but it is not a true secret either.
+        // If this needs to be airtight later, move this lookup behind a
+        // Cloud Function that checks the linkId server-side instead of
+        // exposing a public Firestore query.
+        allow list: if true;
+
+        allow update: if request.resource.data.diff(resource.data)
+                        .affectedKeys()
+                        .hasOnly(["brandName", "brandUpdatedAt"]);
+
+        allow delete: if false;
+      }
+    }
+
+    match /{path=**}/links/{linkId} {
+      allow read: if true;
+    }
+  }
+}

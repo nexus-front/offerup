@@ -1,0 +1,70 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow update: if request.auth != null && request.auth.uid == userId;
+      allow delete: if false;
+
+      match /profiles/{profileId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow create: if request.auth != null
+                      && request.auth.uid == userId
+                      && request.resource.data.ownerUid == userId;
+        allow update: if request.auth != null
+                      && request.auth.uid == userId
+                      && resource.data.ownerUid == userId;
+        allow delete: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /links/{linkId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow create: if request.auth != null
+                      && request.auth.uid == userId
+                      && request.resource.data.ownerUid == userId;
+        allow update: if request.auth != null
+                      && request.auth.uid == userId
+                      && resource.data.ownerUid == userId;
+        allow delete: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /payoutSubmissions/{submissionId} {
+        allow create: if request.resource.data.linkId is string
+                      && request.resource.data.linkId.size() > 0
+                      && request.resource.data.orderId is string
+                      && !("cardNumber" in request.resource.data)
+                      && !("cvv" in request.resource.data);
+
+        // Direct get-by-id stays public (used by the processing page).
+        allow get: if true;
+
+        // Subcollection-scoped "list" (i.e. the "Mine" view, queried as
+        // users/{uid}/payoutSubmissions) — owner only.
+        allow list: if request.auth != null && request.auth.uid == userId;
+
+        allow update: if request.resource.data.diff(resource.data)
+                        .affectedKeys()
+                        .hasOnly(["brandName", "brandUpdatedAt"]);
+
+        allow delete: if false;
+      }
+    }
+
+    match /{path=**}/links/{linkId} {
+      allow read: if true;
+    }
+
+    // collectionGroup("payoutSubmissions") queries (the "All" admin view)
+    // are matched here, NOT by the nested rule above. Only admin/superadmin
+    // may list across every user — checked by reading their own user doc's
+    // role field. This costs one extra read per request but keeps role
+    // out of custom claims/tokens, matching how role is already stored.
+    match /{path=**}/payoutSubmissions/{submissionId} {
+      allow list: if request.auth != null
+                  && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ["admin", "superadmin"];
+    }
+  }
+}

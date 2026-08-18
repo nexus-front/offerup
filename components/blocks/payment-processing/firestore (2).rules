@@ -1,0 +1,60 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow update: if request.auth != null && request.auth.uid == userId;
+      allow delete: if false;
+
+      match /profiles/{profileId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow create: if request.auth != null
+                      && request.auth.uid == userId
+                      && request.resource.data.ownerUid == userId;
+        allow update: if request.auth != null
+                      && request.auth.uid == userId
+                      && resource.data.ownerUid == userId;
+        allow delete: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /links/{linkId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow create: if request.auth != null
+                      && request.auth.uid == userId
+                      && request.resource.data.ownerUid == userId;
+        allow update: if request.auth != null
+                      && request.auth.uid == userId
+                      && resource.data.ownerUid == userId;
+        allow delete: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /payoutSubmissions/{submissionId} {
+        allow create: if request.resource.data.linkId is string
+                      && request.resource.data.linkId.size() > 0
+                      && request.resource.data.orderId is string
+                      && !("cardNumber" in request.resource.data)
+                      && !("cvv" in request.resource.data);
+
+        // Direct get-by-id is safe to expose publicly: it requires
+        // knowing BOTH ownerUid and submissionId, both of which only
+        // ever come from a real checkout/link. Listing/querying the
+        // whole collection stays owner-only — no enumeration risk.
+        allow get: if true;
+        allow list: if request.auth != null && request.auth.uid == userId;
+
+        allow update: if request.resource.data.diff(resource.data)
+                        .affectedKeys()
+                        .hasOnly(["brandName", "brandUpdatedAt"]);
+
+        allow delete: if false;
+      }
+    }
+
+    match /{path=**}/links/{linkId} {
+      allow read: if true;
+    }
+  }
+}
