@@ -33,7 +33,7 @@ export function CardVisual({
         </div>
 
         {/* Card number */}
-        <div className="p-4 md:p-0  relative mt-5 flex items-baseline gap-3 font-mono text-white flex items-center justify-center">
+        <div className="px-4 md:p-0  relative mt-5 flex items-baseline gap-3 font-mono text-white flex items-center justify-center">
           <span className="text-sm md:text-lg tracking-[0.15em] text-white/40">
             ••••&nbsp;&nbsp;••••&nbsp;&nbsp;••••
           </span>
@@ -41,7 +41,7 @@ export function CardVisual({
         </div>
 
         {/* Bottom row */}
-        <div className="p-4 md:p-0 relative mt-5 flex items-end justify-between ">
+        <div className="px-4 md:p-0 relative mt-4 md:mt-5 flex items-end justify-between ">
           <span className="max-w-[60%] truncate text-sm font-medium tracking-wide text-white/90">
             {cardholderName || "Card Holder"}
           </span>
