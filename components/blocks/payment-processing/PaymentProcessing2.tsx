@@ -150,16 +150,18 @@ export default function PaymentProcessing2({
             {/* Card transfer animation */}
             <div className="mt-12 flex w-full max-w-md items-center justify-between">
               {/* Source: escrow / platform */}
-              <div className="flex sm:h-18 sm:w-30 md:h-24 md:w-36 flex-col justify-between rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-700 p-3 text-white shadow-md">
-                <span className="sm:text[7px] md:text-[10px] font-semibold uppercase tracking-wide opacity-80">
+              <div className="flex h-18 w-30 md:h-24 md:w-36 flex-col justify-between rounded-sm md:rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-700 p-3 text-white shadow-md">
+                <span className="text[4px] md:text-[10px] md:font-semibold uppercase tracking-wide opacity-80">
                   Escrow
                 </span>
-                <span className="text-xs font-medium">OfferUp Payments</span>
+                <span className="text-[2px] md:text-xs md:font-medium">
+                  OfferUp Payments
+                </span>
               </div>
 
               {/* Connector with animated dots */}
               <div className="relative mx-3 h-1 flex-1 rounded-full bg-transparent">
-                <div className="absolute inset-0 rounded-full border-t-2 border-dashed border-emerald-300" />
+                {/*   <div className="absolute inset-0 rounded-full border-t-2 border-dashed border-emerald-300" />*/}
                 {Array.from({ length: 4 }).map((_, i) => (
                   <span
                     key={i}
@@ -170,13 +172,13 @@ export default function PaymentProcessing2({
               </div>
 
               {/* Destination: seller's card */}
-              <div className="flex sm:h-18 sm:w-30 md:h-24 md:w-36 flex-col justify-between rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 p-3 text-white shadow-md">
+              <div className="flex h-18 w-30 md:h-24 md:w-36 flex-col justify-between rounded-sm md:rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 p-3 text-white shadow-md">
                 <div className="flex items-center justify-between">
-                  <span className="sm:text[7px] md:text-[10px] font-semibold uppercase tracking-wide opacity-80">
+                  <span className="text[4px] md:text-[10px] md:font-semibold uppercase tracking-wide opacity-80">
                     Your card
                   </span>
                 </div>
-                <span className="text-xs font-medium tracking-wider">
+                <span className="text-[2px] md:text-xs md:font-medium tracking-wider">
                   •••• {card.cardNumber.replace(/\D/g, "").slice(-4)}
                 </span>
               </div>
